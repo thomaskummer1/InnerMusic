@@ -1,0 +1,22 @@
+body {
+    background-color: rgb(255, 255, 255);
+  }
+  h1 {
+    background-color: #666699; color: black; font-size: 300%;
+  }
+  p {
+    color: red;
+  }
+  nav {
+    float: left;
+    width: 50%;
+    background: #666699;
+    padding: 20px;
+  }
+  aside {
+    float: left;
+    width: 13.5%;
+    background: #666699;
+    padding: 17px;
+    border: 3px solid black;
+  }
