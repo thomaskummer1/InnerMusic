@@ -2,8 +2,14 @@ const Navbar = () => {
     return (  
         <nav className="navbar">
             <h1>Inner Music</h1>
-            <a href="/">Home</a>
-            <a href="/create">New Blog</a>
+            <div className="links">
+                <a href="/">Home</a>
+                <a href="/create" style={{
+                    color: 'white',
+                    backgroundColor: '#28245e',
+                    borderRadius: '8px'
+                }}>Sign In</a>
+            </div>
         </nav>
     );
 }
