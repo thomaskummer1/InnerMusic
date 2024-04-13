@@ -1,15 +1,14 @@
 import Navbar from './Navbar';
 import Home from './Home';
-import {
-  Box,
-} from '@chakra-ui/react';
 
 function App() {
   return (
-    <Box>
-      <Navbar />
-      <Home/>
-    </Box>   
+    <div className="App">
+    <Navbar />
+      <div className='content'>
+      <Home />
+      </div>
+    </div>
   );
 }
 
