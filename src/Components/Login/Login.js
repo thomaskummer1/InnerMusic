@@ -1,7 +1,12 @@
+import { useState } from "react";
+import { handleLogin } from '../../FirebaseInit.ts'
 import './Modal.css'
 
 function Login({login}) {
-    function handleSignup() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    function handleChange() {
         login[0](false)
         login[1](true)
     }
@@ -16,16 +21,16 @@ function Login({login}) {
                 </div>
                 <div className="body">
                     <div className='inputBox'>
-                        <input type='text' required='required'/>
+                        <input onChange={e => {setEmail(e.target.value)}} value={email} type='text' required='required'/>
                         <span>Email</span>
                     </div>
                     <div className='inputBox'>
-                        <input type='password' required='required'/>
+                        <input onChange={e => {setPassword(e.target.value)}} value={password} type='password' required='required'/>
                         <span>Password</span>
                     </div>
-                    <button>Submit</button>
+                    <button onClick={() => handleLogin(email, password)}>Submit</button>
                     <p>Don't have an account? <button 
-                    onClick={() => handleSignup()}
+                    onClick={() => handleChange()}
                     style={{backgroundColor:'white',
                     color:'#28245e',
                     border:'white'}}

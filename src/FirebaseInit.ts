@@ -11,16 +11,24 @@ export const firebaseConfig = {
     measurementId: "G-HW6NSJGJFE"
   };
 
-  export const handleLogin = async (userName: string, pass: string): Promise<boolean> => {
+  export const handleLogin = async (email: string, pass: string): Promise<boolean> => {
     const db = getFirestore(getApp());
-    const docRef = doc(db, 'users', userName);
+    const docRef = doc(db, 'users', email);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       if (docSnap.data().password === pass) {
         return true;
-      } else {
-        return false;
-      }
+      } 
+    } 
+    return false;
+  };
+
+  export const handleSignUp = async (email: string, userName:string, pass: string): Promise<boolean> => {
+    const db = getFirestore(getApp());
+    const docRef = doc(db, 'users', email);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return false;
     } else {
       await setDoc(docRef, {
         userName: userName,
@@ -28,4 +36,4 @@ export const firebaseConfig = {
       });
       return true;
     }
-  };
+  }
