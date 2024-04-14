@@ -1,15 +1,44 @@
 import { useState } from "react";
-import { handleLogin } from '../../FirebaseInit.ts'
 import './Modal.css'
+import { doSignInWithEmailAndPassword } from "../../Firebase/auth.js";
+import { useAuth } from "../../Contexts/authContext/index.jsx";
 
 function Login({login}) {
+    //const { loggedIn } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isSigningIn, setIsSigningIn] = useState(false)
+    const [allFieldToast, setAllFieldToast] = useState(false)
 
     function handleChange() {
         login[0](false)
         login[1](true)
     }
+    function doLogin(email, password) {
+        if (email === '' || password === '') {
+            setAllFieldToast(true)
+            setTimeout(() => {
+                setAllFieldToast(false)
+            }, 2000);
+            return
+        }
+        if(!isSigningIn) {
+            setIsSigningIn(true)
+            doSignInWithEmailAndPassword(email, password)
+            .then(() => {
+                setIsSigningIn(false)
+                login[0](false)
+            })
+            .catch((error) => {
+                setIsSigningIn(false)
+                alert(error.message)
+            })
+        
+        }
+    }
+    // if (loggedIn) {
+    //     return <></>
+    // }
     return (
         <div className="modalBackground">
             <div className="modalContainer">
@@ -28,7 +57,7 @@ function Login({login}) {
                         <input onChange={e => {setPassword(e.target.value)}} value={password} type='password' required='required'/>
                         <span>Password</span>
                     </div>
-                    <button onClick={() => handleLogin(email, password)}>Submit</button>
+                    <button onClick={() => doLogin(email, password)}>Submit</button>
                     <p>Don't have an account? <button 
                     onClick={() => handleChange()}
                     style={{backgroundColor:'white',
@@ -37,6 +66,11 @@ function Login({login}) {
                     >Sign Up</button></p>
                 </div>
             </div>
+            {allFieldToast && 
+            <div className='my-toast'>
+                <span className="my-toast__icon">i</span>
+                <span>Please fill out all fields</span>
+            </div>}
         </div>
     )
 }

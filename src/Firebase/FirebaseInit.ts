@@ -1,5 +1,6 @@
-import { getApp } from "firebase/app";
+import { getApp, initializeApp } from "firebase/app";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD9Hq1LqOwthGsH82LdmcAMz6qsIKlZihc",
@@ -10,6 +11,9 @@ export const firebaseConfig = {
     appId: "1:548389261148:web:2f8dba61d860f644fdfb99",
     measurementId: "G-HW6NSJGJFE"
   };
+
+  export const app = initializeApp(firebaseConfig);
+  export const auth = getAuth(app);
 
   export const handleLogin = async (email: string, pass: string): Promise<boolean> => {
     const db = getFirestore(getApp());

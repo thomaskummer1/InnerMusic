@@ -1,39 +1,43 @@
 import { useState } from "react";
-import { handleSignUp } from "../../FirebaseInit.ts";
 import "./Modal.css";
-import { useToast } from '@chakra-ui/react'
+import { doCreateUserWithEmailAndPassword } from "../../Firebase/auth.js";
 
 function SignUp({signup}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUsername] = useState('')
-    const toast = useToast()
+    const [allFieldToast, setAllFieldToast] = useState(false)
+    // const [successToast, setSuccessToast] = useState(false)
+    const [failToast, setFailToast] = useState(false)
+    const [isSigningUp, setIsSigningUp] = useState(false)
 
     function handleChange() {
         signup[1](false)
         signup[0](true)
     }
+
     function signUp(email, userName, password) {
-        const success = handleSignUp(email, userName, password)
-        if (success) {
-            signup[1](false)
-            toast({
-                title: "Account Created.",
-                description: "Your account has been created successfully.",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-            })
-        } else {    
-            toast({
-                title: "Account Creation Failed.",
-                description: "Your account could not be created.",
-                status: "error",
-                duration: 9000,
-                isClosable: true,
-            })
+        if (email === '' || password === '' || userName === '') {
+            setAllFieldToast(true)
+            setTimeout(() => {
+                setAllFieldToast(false)
+            }, 2000);
+            return
+        }
+        if (!isSigningUp) {
+            setIsSigningUp(true)
+            doCreateUserWithEmailAndPassword(email, password).catch
+            ((error) => {
+                setIsSigningUp(false)
+                setFailToast(true)
+                setTimeout(() => {
+                    setFailToast(false)
+            }, 2000);
+            return
+            });
+            setIsSigningUp(false)
+        }
     }
-}
     return (
         <div className="modalBackground">
             <div className="modalContainer">
@@ -65,7 +69,22 @@ function SignUp({signup}) {
                     >Sign Up</button></p>
                 </div>
             </div>
-        </div>
+            {allFieldToast && 
+            <div className='my-toast'>
+                <span className="my-toast__icon">i</span>
+                <span>Please fill out all fields</span>
+            </div>}
+            {/* {successToast && 
+            <div className='my-toast'>
+                <span className="my-toast__icon">i</span>
+                <span>Successfully signed in!</span>
+            </div>} */}
+            {failToast && 
+            <div className='my-toast'>
+                <span className="my-toast__icon">i</span>
+                <span>Email already in use</span>
+            </div>}
+        </div> 
     )
 }
 
