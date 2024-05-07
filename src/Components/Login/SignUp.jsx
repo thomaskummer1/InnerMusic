@@ -7,6 +7,7 @@ function SignUp({signup}) {
     const [password, setPassword] = useState('')
     const [userName, setUsername] = useState('')
     const [allFieldToast, setAllFieldToast] = useState(false)
+    const [passLengthToast, setPassLengthToast] = useState(false)
     // const [successToast, setSuccessToast] = useState(false)
     const [failToast, setFailToast] = useState(false)
     const [isSigningUp, setIsSigningUp] = useState(false)
@@ -24,17 +25,25 @@ function SignUp({signup}) {
             }, 2000);
             return
         }
-        if (!isSigningUp) {
-            setIsSigningUp(true)
-            doCreateUserWithEmailAndPassword(email, password).catch
-            ((error) => {
-                setIsSigningUp(false)
-                setFailToast(true)
-                setTimeout(() => {
-                    setFailToast(false)
+        if (password.length < 6) {
+            setPassLengthToast(true)
+            setTimeout(() => {
+                setPassLengthToast(false)
             }, 2000);
             return
-            });
+        }
+        if (!isSigningUp) {
+            setIsSigningUp(true)
+            doCreateUserWithEmailAndPassword(email, password)
+            // .catch
+            // ((error) => {
+            //     setIsSigningUp(false)
+            //     setFailToast(true)
+            //     setTimeout(() => {
+            //         setFailToast(false)
+            // }, 2000);
+            // return
+            // });
             setIsSigningUp(false)
         }
     }
@@ -83,6 +92,11 @@ function SignUp({signup}) {
             <div className='my-toast'>
                 <span className="my-toast__icon">i</span>
                 <span>Email already in use</span>
+            </div>}
+            {passLengthToast &&
+            <div className='my-toast'>
+                <span className="my-toast__icon">i</span>
+                <span>Password must be at least 6 characters</span>
             </div>}
         </div> 
     )
