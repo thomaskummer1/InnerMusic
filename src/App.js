@@ -1,13 +1,7 @@
 import Navbar from './Components/Navbar';
-import Home from './Components/Home';
-// import { firebaseConfig } from './Firebase/FirebaseInit.ts';
-// import { initializeApp } from 'firebase/app';
-// import { useEffect } from 'react';
+import Home from './Components/Home/Home';
 
 function App() {
-  // useEffect(() => {
-  //   initializeApp(firebaseConfig)
-  // }, [])
   return (
     <div>
     <Navbar />

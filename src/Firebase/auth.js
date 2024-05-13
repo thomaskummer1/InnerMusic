@@ -2,11 +2,17 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, se
 import { auth } from './FirebaseInit.ts';
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
+    // .then((response) => {
+    //     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+    // });
 };
 
 export const doSignInWithEmailAndPassword = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password)
+    // .then((response) => {
+    //     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+    // });
 };
 
 export const doSignOut = () => {

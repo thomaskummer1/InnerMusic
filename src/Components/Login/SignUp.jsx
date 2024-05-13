@@ -35,16 +35,18 @@ function SignUp({signup}) {
         if (!isSigningUp) {
             setIsSigningUp(true)
             doCreateUserWithEmailAndPassword(email, password)
-            // .catch
-            // ((error) => {
-            //     setIsSigningUp(false)
-            //     setFailToast(true)
-            //     setTimeout(() => {
-            //         setFailToast(false)
-            // }, 2000);
-            // return
-            // });
+            console.log('signed up')
+            .catch
+            ((error) => {
+                setIsSigningUp(false)
+                setFailToast(true)
+                setTimeout(() => {
+                    setFailToast(false)
+            }, 2000);
+            return
+            });
             setIsSigningUp(false)
+            signup[1](false)
         }
     }
     return (

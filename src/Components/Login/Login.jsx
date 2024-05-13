@@ -22,6 +22,7 @@ function Login({login}) {
             }, 2000);
             return
         }
+        console.log(email, password)
         if(!isSigningIn) {
             setIsSigningIn(true)
             doSignInWithEmailAndPassword(email, password)
