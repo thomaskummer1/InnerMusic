@@ -1,10 +1,10 @@
 import React from "react";
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
-import SignIn from "./LoginPages/SignIn";
-import DefaultHomepage from "./Homepage/DefaultHomepage";
-import NavBar from "./Navbar/Navbar";
-import SignUp from "./LoginPages/SignUp";
-import Profile from "./Profile";
+import SignIn from "./Components/LoginPages/SignIn";
+import DefaultHomepage from "./Components/Homepage/DefaultHomepage";
+import NavBar from "./Components/Navbar/Navbar";
+import SignUp from "./Components/LoginPages/SignUp";
+import Profile from "./Components/Profile";
 function App() {
   return (
     <HashRouter>
