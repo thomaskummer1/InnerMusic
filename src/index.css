@@ -28,8 +28,28 @@ code {
   color: #28245e;
   background-color: white;
 }
+.bluebutton button {
+  color: white;
+  background-color: #28245e;
+  border-radius: 6px;
+  padding: 2px 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.bluebutton button:hover {
+  color: #28245e;
+  background-color: white;
+}
 .no-link Link { 
   cursor: default; 
   color: black; 
   text-decoration:none; 
+}
+#active {
+  color: white;
+  background-color: #28245e;
+}
+#inactive {
+  color: #28245e;
+  background-color: white;
 }
