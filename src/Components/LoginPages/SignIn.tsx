@@ -1,19 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { setCurrentUser } from "./reducer";
 import { useDispatch } from "react-redux";
-import * as db from "../../Database";
 import { useState } from "react";
+import * as client from "./client";
 
 export default function SignIn() {
   const [credentials, setCredentials] = useState<any>({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signin = () => {
-    const user = db.users.find(
-      (u: any) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
+  const signin = async () => {
+    let user;
+    try {
+      user = await client.signin(credentials);
+    } catch (error) {
+      console.error(error);
+    }
     if (!user) return;
     dispatch(setCurrentUser(user));
     navigate("/Profile");
