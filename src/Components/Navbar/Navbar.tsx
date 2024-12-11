@@ -1,6 +1,10 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function NavBar() {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [search, setSearch] = useState("");
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -77,19 +81,27 @@ export default function NavBar() {
             <input
               className=""
               type="search"
-              placeholder="Tune In"
+              // placeholder="Tune In"
+              placeholder="Search Artist Name"
               aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="" type="submit">
-              Search
-            </button>
+            <Link to={`/Search/${search}`}>
+              <button className="" type="submit">
+                Search
+              </button>
+            </Link>
           </form>
-          <Link className="me-4" to="/SignIn">
-            <button>Sign In</button>
-          </Link>
-          <Link to="/Profile">
-            <button>Profile</button>
-          </Link>
+          {!currentUser && (
+            <Link className="me-4" to="/SignIn">
+              <button>Sign In</button>
+            </Link>
+          )}
+          {currentUser && (
+            <Link to="/Profile">
+              <button>Profile</button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
