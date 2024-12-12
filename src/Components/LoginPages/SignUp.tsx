@@ -9,8 +9,14 @@ export default function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signup = async () => {
+    let currentUser;
     if (user.password === confirmPassword) {
-      const currentUser = await client.signup(user);
+      try {
+        currentUser = await client.signup(user);
+      } catch (error) {
+        alert("Username already exists");
+        return;
+      }
       dispatch(setCurrentUser(currentUser));
       navigate("/Profile/" + currentUser._id + "/Ratings");
     }

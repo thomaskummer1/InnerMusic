@@ -62,3 +62,7 @@ export const getReviewByAlbum = async (album: any) => {
     const response = await axiosWithCredentials.get(`${REMOTE_SERVER}/api/reviews/album/${album}`);
     return response.data;
 }
+export const updateReview = async (review: any) => {
+    const response = await axiosWithCredentials.put(`${REMOTE_SERVER}/api/reviews/${review.albumName}`, review);
+    return response.data;
+}

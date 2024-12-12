@@ -20,6 +20,14 @@ export default function AlbumModal(album: any) {
   let response: any;
   const addRating = async () => {
     if (currentUser && currentUser.role === "EXPERT") {
+      const response = await client.getReviewByAlbum(album.album.name);
+      if (response) {
+        client.updateReview({
+          review: fullReview,
+          albumName: album.album.name,
+        });
+        return;
+      }
       client.addReview({ review: fullReview, albumName: album.album.name });
       return;
     }
@@ -32,6 +40,10 @@ export default function AlbumModal(album: any) {
       response = await client.updateRating({ ...oldRating, ...rating });
     } else {
       try {
+        if (rating.comment === "") {
+          alert("Please add a comment");
+          return;
+        }
         response = await client.createRating(rating);
       } catch (error) {
         console.error(error);

@@ -67,9 +67,7 @@ export default function RatingCards(ratings: any) {
                       onClick={() => {
                         client
                           .deleteRating(ranking)
-                          .then(() =>
-                            navigate("/Profile/" + currentUser._id + "/")
-                          );
+                          .then(() => navigate("/Search/" + ranking.artist));
                       }}
                     >
                       Delete

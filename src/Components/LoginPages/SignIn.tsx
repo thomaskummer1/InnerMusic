@@ -13,7 +13,7 @@ export default function SignIn() {
     try {
       user = await client.signin(credentials);
     } catch (error) {
-      console.error(error);
+      alert("Invalid credentials");
     }
     if (!user) return;
     dispatch(setCurrentUser(user));
