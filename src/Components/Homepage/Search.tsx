@@ -35,7 +35,7 @@ export default function Search() {
     var apiAlbums = await fetch(
       "https://api.spotify.com/v1/artists/" +
         artistId +
-        "/albums?include_groups=album&market=US",
+        "/albums?include_groups=album&limit=50&market=US",
       {
         method: "GET",
         headers: {

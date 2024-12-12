@@ -14,13 +14,13 @@ export default function Settings() {
     dispatch(setCurrentUser(updatedProfile));
   };
   const fetchProfile = () => {
-    if (!currentUser) return navigate("/Kanbas/Account/Signin");
+    if (!currentUser) return navigate("/SignIn");
     setProfile(currentUser);
   };
   const signout = async () => {
+    navigate("/SignIn");
     await client.signout();
     dispatch(setCurrentUser(null));
-    navigate("/Kanbas/Account/Signin");
   };
   useEffect(() => {
     fetchProfile();
@@ -98,7 +98,7 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      <div className="row">
+      {/* <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <div className="input-group input-group-md mt-2 float-start">
             <input
@@ -110,7 +110,7 @@ export default function Settings() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <button className="me-1 mt-2 col-12" onClick={updateProfile}>

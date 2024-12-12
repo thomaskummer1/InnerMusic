@@ -7,7 +7,6 @@ import SignUp from "./Components/LoginPages/SignUp";
 import Profile from "./Components/Profile";
 import { Provider } from "react-redux";
 import store from "./store";
-import ProtectedRoute from "./Components/Profile/ProtectedRoute";
 import Search from "./Components/Homepage/Search";
 function App() {
   return (
@@ -21,14 +20,7 @@ function App() {
             <Route path="/Search/:sterm" element={<Search />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SignUp />} />
-            <Route
-              path="/Profile/*"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/Profile/:uid/*" element={<Profile />} />
           </Routes>
         </div>
       </Provider>

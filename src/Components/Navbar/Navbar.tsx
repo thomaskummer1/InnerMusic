@@ -98,7 +98,7 @@ export default function NavBar() {
             </Link>
           )}
           {currentUser && (
-            <Link to="/Profile">
+            <Link to={"/Profile/" + currentUser._id + "/Ratings"}>
               <button>Profile</button>
             </Link>
           )}

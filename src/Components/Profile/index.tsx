@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Friends from "./Friends";
 import Settings from "./Settings";
 import Ratings from "./Ratings";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function Profile() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -12,10 +13,16 @@ export default function Profile() {
       <ProfileSidebar />
       <div className="flex-fill px-3">
         <Routes>
-          <Route path="/" element={<h1>User</h1>} />
-          <Route path="Ratings" element={<Ratings />} />
-          <Route path="Friends" element={<Friends />} />
-          <Route path="Settings" element={<Settings />} />
+          <Route path="/Ratings" element={<Ratings />} />
+          <Route path="/Friends" element={<Friends />} />
+          <Route
+            path="/Settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </div>

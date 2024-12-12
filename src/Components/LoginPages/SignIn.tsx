@@ -17,7 +17,7 @@ export default function SignIn() {
     }
     if (!user) return;
     dispatch(setCurrentUser(user));
-    navigate("/Profile");
+    navigate("/Profile/" + user._id + "/Ratings");
   };
   return (
     <div className="container-fluid bluebutton">

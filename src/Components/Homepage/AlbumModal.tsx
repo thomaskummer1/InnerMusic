@@ -26,7 +26,7 @@ export default function AlbumModal(album: any) {
       console.error(error);
     }
     if (!response) return;
-    navigate("/Profile/Ratings");
+    navigate("/Profile/" + currentUser._id + "/Ratings");
   };
   return (
     <div
@@ -98,6 +98,9 @@ export default function AlbumModal(album: any) {
                       })
                     }
                   />
+                  {!currentUser && (
+                    <p className="text-danger">*Sign in to add rating</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -113,14 +116,16 @@ export default function AlbumModal(album: any) {
             <button type="button" data-bs-dismiss="modal">
               Cancel{" "}
             </button>
-            <button
-              //   onClick={addModule}
-              type="button"
-              data-bs-dismiss="modal"
-              onClick={addRating}
-            >
-              Add Rating{" "}
-            </button>
+            {currentUser && (
+              <button
+                //   onClick={addModule}
+                type="button"
+                data-bs-dismiss="modal"
+                onClick={addRating}
+              >
+                Add Rating{" "}
+              </button>
+            )}
           </div>
         </div>
       </div>

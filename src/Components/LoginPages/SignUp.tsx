@@ -12,7 +12,7 @@ export default function SignUp() {
     if (user.password === confirmPassword) {
       const currentUser = await client.signup(user);
       dispatch(setCurrentUser(currentUser));
-      navigate("/Profile");
+      navigate("/Profile/" + currentUser._id + "/Ratings");
     }
   };
   return (
