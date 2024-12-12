@@ -1,5 +1,5 @@
 import { title } from "process";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as client from "./client";
 import { useSelector } from "react-redux";
@@ -15,15 +15,27 @@ export default function AlbumModal(album: any) {
     comment: "",
     user: "",
   });
+  const [fullReview, setFullReview] = useState("");
 
   let response: any;
   const addRating = async () => {
-    console.log(rating);
-    console.log(album);
-    try {
-      response = await client.createRating(rating);
-    } catch (error) {
-      console.error(error);
+    if (currentUser && currentUser.role === "EXPERT") {
+      client.addReview({ review: fullReview, albumName: album.album.name });
+      return;
+    }
+    const oldRating = await client.getRatingByUserAndAlbum(
+      currentUser,
+      album.album.name
+    );
+    if (oldRating) {
+      // alert("You have already rated this album");
+      response = await client.updateRating({ ...oldRating, ...rating });
+    } else {
+      try {
+        response = await client.createRating(rating);
+      } catch (error) {
+        console.error(error);
+      }
     }
     if (!response) return;
     navigate("/Profile/" + currentUser._id + "/Ratings");
@@ -66,42 +78,54 @@ export default function AlbumModal(album: any) {
                     </Link>
                   </h5>
                 </div>
-                <div className="col">
-                  <input
-                    type="number"
-                    className="form-control mb-4"
-                    placeholder="Album Rating Out Of 10"
-                    min="1"
-                    max="10"
-                    onChange={(e) =>
-                      setRating({
-                        ...rating,
-                        album: album.album.name,
-                        artist: album.album.artists[0].name,
-                        img: album.album.images[0].url,
-                        rating: Number(e.target.value),
-                        user: currentUser._id,
-                      })
-                    }
-                  />
-                  <textarea
-                    className="form-control"
-                    placeholder="Comments"
-                    onChange={(e) =>
-                      setRating({
-                        ...rating,
-                        album: album.album.name,
-                        artist: album.album.artists[0].name,
-                        img: album.album.images[0].url,
-                        comment: e.target.value,
-                        user: currentUser._id,
-                      })
-                    }
-                  />
-                  {!currentUser && (
-                    <p className="text-danger">*Sign in to add rating</p>
-                  )}
-                </div>
+                {((currentUser && currentUser.role === "USER") ||
+                  !currentUser) && (
+                  <div className="col">
+                    <input
+                      type="number"
+                      className="form-control mb-4"
+                      placeholder="Album Rating Out Of 10"
+                      min="1"
+                      max="10"
+                      onChange={(e) =>
+                        setRating({
+                          ...rating,
+                          album: album.album.name,
+                          artist: album.album.artists[0].name,
+                          img: album.album.images[0].url,
+                          rating: Number(e.target.value),
+                          user: currentUser._id,
+                        })
+                      }
+                    />
+                    <textarea
+                      className="form-control"
+                      placeholder="Comments"
+                      onChange={(e) =>
+                        setRating({
+                          ...rating,
+                          album: album.album.name,
+                          artist: album.album.artists[0].name,
+                          img: album.album.images[0].url,
+                          comment: e.target.value,
+                          user: currentUser._id,
+                        })
+                      }
+                    />
+                    {!currentUser && (
+                      <p className="text-danger">*Sign in to add rating</p>
+                    )}
+                  </div>
+                )}
+                {currentUser && currentUser.role === "EXPERT" && (
+                  <div className="col">
+                    <textarea
+                      className="form-control"
+                      placeholder="Full Review"
+                      onChange={(e) => setFullReview(e.target.value)}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             {/* <input

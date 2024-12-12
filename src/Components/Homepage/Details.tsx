@@ -5,12 +5,21 @@ import * as client from "./client";
 export default function Details() {
   const { album } = useParams();
   const [ratings, setRatings] = useState([]);
+  const [review, setReview] = useState<{ review: string }>({ review: "" });
 
   useEffect(() => {
     const fetchRatings = async () => {
       setRatings(await client.getRatingsByAlbum(album));
     };
     fetchRatings();
+  }, [album]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      setReview(await client.getReviewByAlbum(album));
+    };
+    fetchReviews();
+    console.log(review);
   }, [album]);
 
   return (
@@ -35,6 +44,16 @@ export default function Details() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="container my-5">
+        <h2 className="mb-4 text-center fw-bold">Experts Say:</h2>
+        <div className="card shadow-sm">
+          <div className="card-body">
+            <p className="card-text fs-5 fst-italic text-muted">
+              "{review.review}"
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

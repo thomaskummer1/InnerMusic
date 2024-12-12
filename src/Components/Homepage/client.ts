@@ -46,3 +46,19 @@ export const deleteFriend = async (friend: any) => {
     const response = await axiosWithCredentials.delete(`${REMOTE_SERVER}/api/friends/${friend._id}`);
     return response.data;
 }
+export const updateRating = async (rating: any) => {
+    const response = await axiosWithCredentials.put(`${RATINGS_API}/${rating._id}`, rating);
+    return response.data;
+}
+export const getRatingByUserAndAlbum = async (user: any, album: any) => {
+    const response = await axiosWithCredentials.get(`${RATINGS_API}/user/${user._id}/album/${album}`);
+    return response.data;
+}
+export const addReview = async (review: any) => {
+    const response = await axiosWithCredentials.post(`${REMOTE_SERVER}/api/reviews`,  review );
+    return response.data;
+}
+export const getReviewByAlbum = async (album: any) => {
+    const response = await axiosWithCredentials.get(`${REMOTE_SERVER}/api/reviews/album/${album}`);
+    return response.data;
+}
