@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router";
+import * as client from "./Homepage/client";
 
 export default function RatingCards(ratings: any) {
   const maxChar = 17;
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { uid } = useParams();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   // const [isHomeScreen, setIsHomeScreen] = useState(homescreen);
+  // const [ratingList, setRatingList] = useState(ratings);
 
+  // useEffect(() => {
+  //   setRatingList(ratings);
+  // }, [ratings]);
+
+  // const handleDelete = async (ranking: { _id: any }) => {
+  //   try {
+  //     await client.deleteRating(ranking);
+  //     // Update the local state after deletion
+  //     setRatingList(
+  //       ratingList.ratings.filter((rating: any) => rating._id !== ranking._id)
+  //     );
+  //   } catch (error) {
+  //     console.error("Error deleting rating:", error);
+  //   }
+  // };
   return (
     <div className="row bluebutton">
       <div className="row row-cols-9 row-cols-md-5">
@@ -39,6 +59,22 @@ export default function RatingCards(ratings: any) {
                     View Artist
                   </button>
                 )}
+                {pathname.includes("Ratings") &&
+                  uid &&
+                  uid === currentUser._id && (
+                    <button
+                      style={{ background: "red", float: "right" }}
+                      onClick={() => {
+                        client
+                          .deleteRating(ranking)
+                          .then(() =>
+                            navigate("/Profile/" + currentUser._id + "/")
+                          );
+                      }}
+                    >
+                      Delete
+                    </button>
+                  )}
               </div>
             </div>
           </div>

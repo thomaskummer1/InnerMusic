@@ -98,19 +98,19 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      {/* <div className="row">
+      <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <div className="input-group input-group-md mt-2 float-start">
-            <input
-              type="date"
-              className="form-control"
-              placeholder="DOB"
-              defaultValue={profile.dob}
-              onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
-            />
+            <select
+              className="custom-select"
+              onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+            >
+              <option value="USER">User</option>
+              <option value="STATISTICIAN">Statistician</option>
+            </select>
           </div>
         </div>
-      </div> */}
+      </div>
       <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <button className="me-1 mt-2 col-12" onClick={updateProfile}>

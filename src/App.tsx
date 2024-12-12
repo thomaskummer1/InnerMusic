@@ -8,6 +8,7 @@ import Profile from "./Components/Profile";
 import { Provider } from "react-redux";
 import store from "./store";
 import Search from "./Components/Homepage/Search";
+import Details from "./Components/Homepage/Details";
 function App() {
   return (
     <HashRouter>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<DefaultHomepage />} />
             <Route path="/Search" element={<Navigate to="/" />} />
             <Route path="/Search/:sterm" element={<Search />} />
+            <Route path="/details/:album" element={<Details />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Profile/:uid/*" element={<Profile />} />

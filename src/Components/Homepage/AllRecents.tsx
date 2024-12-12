@@ -29,10 +29,6 @@ export default function AllRecents() {
     }
   };
   useEffect(() => {
-    console.log(leftIndex);
-    console.log(rightIndex);
-  }, [leftIndex, rightIndex]);
-  useEffect(() => {
     const fetchData = async () => {
       setAllRatings(await client.getAllRatings());
     };

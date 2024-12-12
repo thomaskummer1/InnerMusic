@@ -113,8 +113,12 @@ export default function AlbumModal(album: any) {
             {/* {JSON.stringify(album)} */}
           </div>
           <div className="modal-footer">
-            <button type="button" data-bs-dismiss="modal">
-              Cancel{" "}
+            <button
+              type="button"
+              data-bs-dismiss="modal"
+              onClick={() => navigate("/details/" + album.album.name)}
+            >
+              See More{" "}
             </button>
             {currentUser && (
               <button
