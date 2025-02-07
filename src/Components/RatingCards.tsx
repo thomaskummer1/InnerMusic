@@ -60,6 +60,7 @@ export default function RatingCards(ratings: any) {
                   </button>
                 )}
                 {pathname.includes("Ratings") &&
+                  currentUser &&
                   uid &&
                   uid === currentUser._id && (
                     <button

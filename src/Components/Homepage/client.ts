@@ -16,6 +16,7 @@ export const getRatingsForUser = async (user: any) => {
 }
 export const getRatingsForUserID = async (userID: any) => {
     const response = await axiosWithCredentials.get(`${RATINGS_API}/user/${userID}`);
+    console.log(response.data);
     return response.data;
 }
 export const getRatingsByAlbum = async (album: any) => {
