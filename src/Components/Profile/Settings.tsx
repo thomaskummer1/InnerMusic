@@ -41,7 +41,7 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      <div className="row">
+      {/* <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <div className="input-group input-group-md mt-2 float-start">
             <input
@@ -55,7 +55,7 @@ export default function Settings() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <div className="input-group input-group-md mt-2 float-start">
@@ -98,7 +98,7 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      <div className="row">
+      {/* <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <div className="input-group input-group-md mt-2 float-start">
             <select
@@ -110,7 +110,7 @@ export default function Settings() {
             </select>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="row">
         <div className="col-8 col-sm-6 col-lg-4">
           <button className="me-1 mt-2 col-12" onClick={updateProfile}>
