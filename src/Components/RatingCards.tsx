@@ -32,8 +32,11 @@ export default function RatingCards(ratings: any) {
       <div className="row row-cols-9 row-cols-md-5">
         {ratings.ratings.map((ranking: any) => (
           <div className="col" style={{ width: 250 }}>
-            <div className="card rounded-3 overflow-hidden">
-              <img src={ranking.img} width="100%" height={200} />
+            <div
+              className="card rounded-3 overflow-hidden"
+              style={{ width: 230 }}
+            >
+              <img src={ranking.img} width={230} height={200} />
               <div className="card-body">
                 <h6 className="card-title">
                   {ranking.album.length > maxChar
