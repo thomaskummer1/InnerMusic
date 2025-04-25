@@ -1,0 +1,38 @@
+name: Deploy Frontend to ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Amazon ECR
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 140023394996.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Build Docker image
+        run: |
+          docker build -t innermusic-frontend .
+          docker tag innermusic-frontend:latest 140023394996.dkr.ecr.us-east-1.amazonaws.com/innermusic-frontend:latest
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push 140023394996.dkr.ecr.us-east-1.amazonaws.com/innermusic-frontend:latest
+
+      - name: Update ECS service for frontend
+        run: |
+          aws ecs update-service \
+            --cluster innermusic-cluster \
+            --service innermusic-frontend \
+            --force-new-deployment \
+            --region us-east-1
